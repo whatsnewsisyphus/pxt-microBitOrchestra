@@ -921,8 +921,10 @@ namespace OrchestraMusician {
          * @param With how many steps
          * @param stepsAndUse internal or external clock
          */
-    //% blockId="MBORCH_makeASimplerSequencer" block="make a simple sequencer:|number of steps = $NumberOfSteps|the instrument I am controlling is called $masterName the first sound I want to control is $note1|the second sound I want to control is $note2|the third sound I want to control is $note3|the fourth sound I want to control is $note4"
+    //% blockId="MBORCH_makeASimplerSequencer" block="make a simple sequencer:|number of steps = $NumberOfSteps|the instrument I am controlling is called $masterName the first sound I want to control is $note1|the second sound I want to control is $note2|the third sound I want to control is $note3|the fourth sound I want to control is $note4|tempo %Tempo "
     //% note2.defl=1 note3.defl=2 note4.defl=3
+    //% Tempo.min=40 Tempo.max=400
+    //% Tempo.defl=120
     export function makeASimpleSequencer(NumberOfSteps: numberofSteps, masterName: string, note1: number, note2: number, note3: number, note4: number): void {
         polySend = true  //make it send polyphonic ints        
         polyInstrumentName = masterName
@@ -934,7 +936,7 @@ namespace OrchestraMusician {
         if (redirectLocalHW) {
             allowBleeps = 0
         }
-        makeAnAdvancedSequencer(NumberOfSteps, internalExternal.autorun_in_simulator, 40, metronomeNoYes.no_thanks, allowBleeps)
+        makeAnAdvancedSequencer(NumberOfSteps, internalExternal.autorun_in_simulator, Tempo, metronomeNoYes.no_thanks, allowBleeps)
         setUpTrackRouting(channels.one, masterName, note1 % 16)
         setUpTrackRouting(channels.two, masterName, note2 % 16)
         setUpTrackRouting(channels.three, masterName, note3 % 16)
@@ -960,7 +962,7 @@ namespace OrchestraMusician {
         polySend = true  //make it send polyphonic ints        
         polyInstrumentName = masterName
 
-        makeAnAdvancedSequencer(NumberOfSteps, internalExternal.internal_clock, tEmpo, metronomeNoYes.no_thanks, allowBlipsNoYes.yes_please)
+        makeAnAdvancedSequencer(NumberOfSteps, internalExternal.internal_clock, tEmpo, metronomeNoYes.no_thanks, allowBlipsNoYes.no_thanks)
         setUpTrackRouting(channels.one, masterName, note1)
         setUpTrackRouting(channels.two, masterName, note2)
         setUpTrackRouting(channels.three, masterName, note3)
